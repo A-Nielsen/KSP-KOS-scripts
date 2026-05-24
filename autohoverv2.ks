@@ -142,7 +142,6 @@ function update_guidance_values{
     calc_roll_speed().
     calc_pitch().
     calc_yaw().
-    calc_counter_force().
 
     set prev_forward_vec_hor to forward_vec_hor.
     set prev_time to time:seconds.
