@@ -2,6 +2,7 @@ RUN ONCE "core.ks".
 RUN ONCE "pose.ks".
 RUN ONCE "core_control.ks".
 RUN ONCE "pilot_control.ks".
+RUN ONCE "gui.ks".
 
 
 until false {
