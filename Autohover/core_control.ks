@@ -75,17 +75,17 @@ function yaw_guidance {
 
 function update_pids {
     set pi_roll:setpoint to tgt_roll.
-    set pi_hover:SETPOINT to tgt_height.
-    set pi_pitch:SETPOINT to tgt_pitch.
-    set pi_yaw:SETPOINT to tgt_yaw.
+    set pi_hover:setpoint to tgt_height.
+    set pi_pitch:setpoint to tgt_pitch.
+    set pi_yaw:setpoint to tgt_yaw.
 }
 
 
 function run_core_control {
     update_pids().
-    auto_center().
-    roll_guidance().
     hover_guidance().
+    roll_guidance().
     pitch_guidance().
     yaw_guidance().
+    auto_center().
    }

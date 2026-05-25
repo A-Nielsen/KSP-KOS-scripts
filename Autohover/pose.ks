@@ -22,6 +22,7 @@ function calc_yaw {
 
 
 function update_pose {
+    clearscreen.
     set prev_time to cur_time.
     set cur_time to time:seconds.
 
@@ -31,7 +32,7 @@ function update_pose {
 
     set roll_speed to calculate_vector_delta(
         prev_forward_vec_hor,
-        forward_vec,
+        forward_vec_hor,
         prev_time,
         cur_time
     ).

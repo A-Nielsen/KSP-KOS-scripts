@@ -29,7 +29,7 @@ function calculate_vector_delta {
     if in_prev_time = in_current_time {
       return 0.
     }
-    if in_prev_time = in_cur_vec {
+    if in_prev_vec = in_cur_vec {
       return 0.
     }
 
@@ -38,6 +38,6 @@ function calculate_vector_delta {
     local second_fraction to time_delta/1.
 
     local turn_dir to compute_turn_direction(in_prev_vec, in_cur_vec).
-
+    
     return (arcCos(vdot(in_prev_vec:normalized, in_cur_vec:normalized)) / (time_delta)) * second_fraction * turn_dir.
 }
