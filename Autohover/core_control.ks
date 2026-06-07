@@ -73,6 +73,12 @@ function yaw_guidance {
 }
 
 
+function dampen_velocity {
+    // Calculate the magnitude of front and side
+        // Based on the direction
+}
+
+
 function update_pids {
     set pi_roll:setpoint to tgt_roll.
     set pi_hover:setpoint to tgt_height.

@@ -5,6 +5,7 @@ global prev_time to 0.
 global cur_time to 0.
 global roll_speed to 0.
 global surf_speed to 0.
+global hor_direction to v(0,0,0).
 
 
 global pitch to 0.
@@ -39,6 +40,7 @@ function update_pose {
     ).
 
     set surf_speed to ship:groundspeed.
+    set hor_direction to determine_hor_direction().
 
     calc_pitch().
     calc_yaw().

@@ -1,4 +1,10 @@
 
+// Determine direction (normal vector)
+  // Prograde is my direction... so i just have to remove vertical factor
+function determine_hor_direction {
+  return vxcl(up:vector, ship:prograde:vector).
+}
+
 
 function calc_forward_vector {
   return ship:facing:topvector.
