@@ -12,7 +12,7 @@ function calc_forward_vector {
 
 function calc_foward_hor_vector {
   parameter in_forward_vec.
-  return vxcl(up:vector, in_forward_vec).
+  return vxcl(up:vector, in_forward_vec):normalized.
 }
  
  
