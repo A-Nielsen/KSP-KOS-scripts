@@ -1,87 +1,70 @@
 % !TEX root = "../document.tex"
-\documentclass{article}
+\documentclass[11pt]{article}
+\parindent 0px
+\hbadness=99999
+\usepackage{fullpage}
 \usepackage{physics}
-
 \usepackage{tikz}
-\usetikzlibrary{angles,quotes, math}
-\usepackage{xcolor}
-\colorlet{veccol}{green!70!black}
-\colorlet{vcol}{green!70!black}
-\colorlet{xcol}{blue!85!black}
-\colorlet{projcol}{xcol!60}
-\colorlet{unitcol}{xcol!60!black!85}
-\colorlet{myblue}{blue!70!black}
-\colorlet{myred}{red!90!black}
-\colorlet{mypurple}{blue!50!red!80!black!80}
-\tikzstyle{vector}=[->,very thick,xcol]
-\setlength{\parindent}{0pt}
+\usetikzlibrary{angles, quotes, math, 3d, calc, arrows.meta}
 
 \begin{document}
 
-    \section{Determining velocity in reference frame of vessel}
+\section{Determining velocity in reference frame of vessel}
 
-    \vspace{1em}
     Vector $\vec{v}$ is our velocity.
+    Vectors $\vu{f}$ and $\vu{s}$ are forward and starboard directions of a vessel.
+    So $\vu{f}$ would be the 'nose'. 
+    Think of these as orientation vectors.
 
-    Vectors $\vu{f}$ and $\vu{s}$ are forward and starboard directions of a vessel. So $\vu{f}$ would be the 'nose'.
-    
-    \vspace{1em}
+    \begin{figure}[h]  
     \begin{center}
-        \begin{tikzpicture}[scale=2]
-        % vertical gap between centers (change to taste)
-        \def\vsep{2.5} % units in TikZ coordinates (scaled by scale=2)
-            \begin{scope}[shift={(0,0)}]
+        \hspace*{\fill}
+        \begin{tikzpicture}[scale=2, >=Stealth]
                 \draw (0,0) circle [radius=0.5cm];
-                \draw[vector, black, thin] (0,0) -- (0,1) node[midway,left=5, above] {$\vu{f}$};
-                \draw[vector, black, thin] (0,0) -- (1,0) node[midway,below=5, right] {$\vu{s}$};
-                \draw[vector, blue, thick] (0,0) -- (1,1.5) node[midway,right] {$\vec{v}$};
-            \end{scope}
-
-
-            \begin{scope}[shift={(+\vsep,0)}]
+                \draw[->, black, thin] (0,0) -- (0,1) node[midway,left=5, above] {$\vu{f}$};
+                \draw[->, black, thin] (0,0) -- (1,0) node[midway,below=5, right] {$\vu{s}$};
+                \draw[->, blue, thick] (0,0) -- (1,1.5) node[midway,right] {$\vec{v}$};
+        \end{tikzpicture}\hfill
+        \begin{tikzpicture}[scale=2, >=Stealth]
                 \draw (0,0) circle [radius=0.5cm];
                 \begin{scope}[rotate=30]
-                \draw[vector, black, thin] (0,0) -- (0,1) node[midway,left=5] {$\vu{f}$};
-                \draw[vector, black, thin] (0,0) -- (1,0) node[midway,below=5, right=2] {$\vu{s}$};
+                \draw[->, black, thin] (0,0) -- (0,1) node[midway,left=5] {$\vu{f}$};
+                \draw[->, black, thin] (0,0) -- (1,0) node[midway,below=5, right=2] {$\vu{s}$};
                 \end{scope}
-                \draw[vector, gray, thin] (0,0) -- (0,1);
-                \draw[vector, gray, thin] (0,0) -- (1,0);
-                \draw[vector, blue, thick] (0,0) -- (1,1.5) node[midway,right] {$\vec{v}$};
+                \draw[->, gray, thin] (0,0) -- (0,1);
+                \draw[->, gray, thin] (0,0) -- (1,0);
+                \draw[->, blue, thick] (0,0) -- (1,1.5) node[midway,right] {$\vec{v}$};
                 \draw[->, thick] (0.7,0) arc[start angle=0,end angle=30,radius=0.7] node[midway,right] {$30^\circ$};
                 \draw[->, thick] (0,0.7) arc[start angle=90,end angle=120,radius=0.7] node[midway, above] {$30^\circ$};
-            \end{scope}
         \end{tikzpicture}
+        \hspace*{\fill}
     \end{center}
+    \end{figure}
 
-    In the reference frame of the ground (or planet) $\vec{v}$ does not change direction as the vessel rotates. Notice in the drawing $\vu{f}$ and $\vu{s}$ rotate 30 degrees. But $\vec{v}$ remains static. 
-    (Imagine the illustrations as a top down view from an external observer.)
-    \vspace{1em}
+    In the reference frame of the ground (or planet) $\vec{v}$ does not change direction as the vessel rotates. 
+    Notice in the drawing $\vu{f}$ and $\vu{s}$ rotate 30 degrees. 
+    But $\vec{v}$ remains static. 
+    (Imagine the illustrations as a top down view from an external observer.)\\
 
     As $\vu{f}$ and $\vu{s}$ are unit vectors, they will have a magnitude of 1.
     While $\vec{v}$ will have a variable magnitude representing groundspeed in m/s.
-    The goal is to calculate $\vec{v}$ but represented in $\vu{f}$ and $\vu{s}$. 
+    The goal is to calculate $\vec{v}$ but represented in $\vu{f}$ and $\vu{s}$.\\
 
-
-    \vspace{1em}
     A dot product tells us how much two vectors point in the same direction. 
     Imagine walking along $\vec{v}$ at a 45$^\circ$, you will walk equally along the vectors $\vu{f}$ and $\vu{s}$.
     If we change the angle of $\vec{v}$ to 20$^\circ$ from $\vu{f}$, then we will walk further along $\vu{f}$ than $\vu{s}$.
-
-
     
     \vspace{1em}
     \begin{center}
-        \begin{tikzpicture}[
-            scale=2,
-            vector/.style={-stealth}
-        ]
-        \def\vsep{2.5} % units in TikZ coordinates (scaled by scale=2)
-            \begin{scope}[shift={(0,0)}]
-                        \coordinate (O) at (0,0);
+        \hspace*{\fill}
+        \begin{tikzpicture}[scale=2, >=Stealth]
+                % Define our points
+                \coordinate (O) at (0,0);
                 \coordinate (F) at (0,1);
                 \coordinate (S) at (1,0);
                 \coordinate (V) at (1.2,1.2);
-
+                
+                % Calculate our angles
                 \tikzmath{
                     \angS = atan2(0, 1);
                     \angV = atan2(1, 1);
@@ -90,25 +73,26 @@
                     \diffB = \angF - \angV;
                 }
 
+                % Draw
                 \draw (O) circle [radius=0.5cm];
-                \draw[vector, black, thin] (O) -- (F) node[midway, left=5, above] {$\vu{f}$};
-                \draw[vector, black, thin] (O) -- (S) node[midway, below=5, right] {$\vu{s}$};
-                \draw[vector, blue, thick] (O) -- (V) node[midway, right] {$\vec{v}$};
-
+                \draw[->, black, thin] (O) -- (F) node[midway, left=5, above] {$\vu{f}$};
+                \draw[->, black, thin] (O) -- (S) node[midway, below=5, right] {$\vu{s}$};
+                \draw[->, blue, thick] (O) -- (V) node[midway, right] {$\vec{v}$};
                 \pic [draw, angle radius=0.7cm, 
                         "{\small \pgfmathprintnumber[fixed, precision=1]{\diffA}$^\circ$}", 
-                        angle eccentricity=1.5] {angle = S--O--V};
-                
+                        angle eccentricity=1.5] {angle = S--O--V};                
                 \pic [draw, angle radius=0.9cm, 
                         "{\small \pgfmathprintnumber[fixed, precision=1]{\diffB}$^\circ$}", 
                         angle eccentricity=1.4] {angle = V--O--F};        
-            \end{scope}
-            \begin{scope}[shift={(+\vsep,0)}]
+        \end{tikzpicture}\hfill
+        \begin{tikzpicture}[scale=2, >=Stealth]
+                % Define our points
                 \coordinate (O) at (0,0);
                 \coordinate (F) at (0,1);
                 \coordinate (S) at (1,0);
                 \coordinate (V) at (0.545,1.5);
 
+                % Calculate our angles
                 \tikzmath{
                     \angS = atan2(0, 1);
                     \angV = atan2(1.5, 0.545);
@@ -117,41 +101,119 @@
                     \diffB = \angF - \angV;
                 }
 
+                % Draw
                 \draw (O) circle [radius=0.5cm];
-                \draw[vector, black, thin] (O) -- (F) node[midway, left=5, above] {$\vu{f}$};
-                \draw[vector, black, thin] (O) -- (S) node[midway, below=5, right] {$\vu{s}$};
-                \draw[vector, blue, thick] (O) -- (V) node[midway, right] {$\vec{v}$};
-
+                \draw[->, black, thin] (O) -- (F) node[midway, left=5, above] {$\vu{f}$};
+                \draw[->, black, thin] (O) -- (S) node[midway, below=5, right] {$\vu{s}$};
+                \draw[->, blue, thick] (O) -- (V) node[midway, right] {$\vec{v}$};
                 \pic [draw, angle radius=0.7cm, 
                     "{\small \pgfmathprintnumber[fixed, precision=1]{\diffA}$^\circ$}", 
                     angle eccentricity=1.5] {angle = S--O--V};
-                
                 \pic [draw, angle radius=0.9cm, 
                     "{\small \pgfmathprintnumber[fixed, precision=1]{\diffB}$^\circ$}", 
-                    angle eccentricity=1.4] {angle = V--O--F};
-                
-            \end{scope}
-
-
+                    angle eccentricity=1.5] {angle = V--O--F};
         \end{tikzpicture}   
+        \hspace*{\fill}
     \end{center}
 
     Because of this relation, we can simply do as following:
     \begin{center}
-        Foward speed
+        Forward velocity\\
+        $V_f = \vu{f} \cdot \vec{v}$
 
-        $\vec{f}$ = $\vu{f}$ $\cdot$ $\vec{v}$
-        \vspace{1em}
-
-        Starboard speed
-        
-        $\vec{s}$ = $\vu{s}$ $\cdot$ $\vec{v}$
+        Starboard velocity\\
+        $V_s = \vu{s} \cdot \vec{v}$
     \end{center}
         \vspace{1em}
-    Because of how dot products work, if $\vec{v}$ points opposite of $\vu{f}$ and $\vu{s}$, the resulting dot product will be negative.
-    This is good, as we can use this output to represent the vessel as going backwards or left (starboard representing right).
+    Because of the properties of the dot product, if $\vec{v}$ points opposite of $\vu{f}$ and $\vu{s}$, the resulting dot product will be negative.
+    This negative value represents a velocity pointing opposite to our orientation vectors.
 
-    \section{Translating relative velocity to counteractive control inputs}
 
+\section{Translating relative velocity to counteractive control inputs}
+
+    So far we have thought of $\vu{f}$ and $\vu{s}$ as isolated orientation vectors in a 2d space.
+    However, our vessel flies in a 3d space. 
+    In the code we simply remove the "up" element.\\
+
+    The means of how we determine the forevector is important.
+    The vessel this system is made for is designed such that, when it is neutral, the navball will say we are pointing straight up. 
+    So if we just got the forevector though kOS' structures, we would get a vector that points straight up. 
+    This is obviously in conflict with how we represent $\vu{f}$ and $\vu{s}$.\\
+
+    The forevector of a vessel in kOS is always where the navball is pointing.
+    This means that by default, the forevector is equal to the vessels Z-axis. 
+    KOS allows us to easily get the top-axis, which is the Y-axis. 
+    This axis is also the same as the direction the craft will rotate, if we pitch down (press W).\\
+    
+    In our code, this looks as follows
+    \begin{verbatim}
+        function calc_forward_vector {
+            return ship:facing:topvector.
+        }
+
+        function calc_foward_hor_vector {
+            parameter in_forward_vec.
+            return vxcl(up:vector, in_forward_vec):normalized.
+        }
+    \end{verbatim}
+
+    As you can see, we have two functions.
+    One that calculates (returns) the forward (top) vector, and one that returns the foward vector, without the components of the up vector.
+    Note, that the up vector is up relative to the frame of the planet. 
+    So really we are removing the (unit) vector that points from the center of the planet, to our vessel.
+    We use the inbuilt function vxcl (vector exclude) to accomplish this. \\
+
+    kOS explains how vxcl works as follows:
+    \begin{center}
+        \textit{
+        This is a vector, v2 with all of v1 excluded from it.\\ 
+        In other words, the projection of v2 onto the plane that is normal to v1.
+        }\\       
+    \end{center}
+    \begin{center}
+        \small{(Parameters v1 being up:vector and v2 being in\_forward\_vec.)}
+    \end{center}
+\vspace{1em}
+    \begin{center}
+        \begin{tikzpicture}[scale=2, >=Stealth]
+                % Setup baseline coordinates for a 3D perspective projection
+                \coordinate (O) at (0,0,0);
+                
+                % Horizontal Plane (Normal to up:vector)
+                \coordinate (P1) at (-1.5, 0, -1.2);
+                \coordinate (P2) at (1.5, 0, -1.2);
+                \coordinate (P3) at (2, 0, 1.2);
+                \coordinate (P4) at (-1, 0, 1.2);
+                
+                % Draw Plane
+                \filldraw[fill=blue!5, draw=blue!30, opacity=0.7] (P1) -- (P2) -- (P3) -- (P4) -- cycle;
+                \node[blue!70!black, font=\small, left=50, below] at (1.4,0,1) {Horizon Plane $\perp \vec{v}_1$};
+
+                % v1: up:vector (Normal vector pointing straight up on Y axis)
+                \coordinate (V1) at (0, 1.8, 0);
+                \draw[->, black!60!green, thick] (O) -- (V1) node[above] {$\vec{v}_1$ (\texttt{up:vector})};
+
+                % v2: in_forward_vec (Points up and outward from plane)
+                \coordinate (V2) at (1.3, 1.2, 0.5);
+                \draw[->, blue, thick] (O) -- (V2) node[above right] {$\vec{v}_2$ (\texttt{in\_forward\_vec})};
+
+                % Result: vxcl projection vector (lies flat on the surface plane directly beneath v2)
+                \coordinate (V2_proj) at (1.3, 0, 0.5);
+                \draw[->, red, ultra thick] (O) -- (V2_proj) node[anchor=west, xshift=4pt] {\textbf{\texttt{vxcl}} result};
+
+                % Exclusion / Tracking construction lines
+                \draw[dashed, gray] (V2) -- (V2_proj);
+                
+                % Parallel component tracking on v1 axis
+                \coordinate (V2_para) at (0, 1.2, 0);
+                \draw[dashed, gray] (V2) -- (V2_para);
+                
+                % Right-angle indicator at base of projection
+                \draw[thin, gray] ($(V2_proj)+(-0.15,0, -0.05)$) -- ($(V2_proj)+(-0.15,0.15,-0.05)$) -- ($(V2_proj)+(0,0.15,0)$);
+        \end{tikzpicture}
+    \end{center}
+
+    Because we are projecting onto the plane, and the forward vector often will be at an angle as the vessel pitches and yaws, the result won't be a unit vector.
+    To fix this we use the :normalized function and restore it to a unit vector.
 
 \end{document}
